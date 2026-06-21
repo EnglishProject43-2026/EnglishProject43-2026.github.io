@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pages I Tried to Forget — Juliet's Journal</title>
+
+<!-- Same fonts as the main project -->
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   ROOT VARIABLES — identical to the main project
+   ============================================================ */
+:root {
+  --ink: #2c1a0e;
+  --ink-faded: #5c3d2e;
+  --parchment: #f5ead0;
+  --parchment-dark: #e8d5aa;
+  --parchment-shadow: #c9a96e;
+  --blood: #8b1a1a;
+  --blood-light: #c0392b;
+  --gold: #b8860b;
+  --gold-light: #d4a843;
+  --aged: #9e7b4a;
+  --page-bg: #1a0f08;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ============================================================
+   BODY — same dark wood texture as main project
+   ============================================================ */
+body {
+  background-color: var(--page-bg);
+  background-image:
+    radial-gradient(ellipse at 20% 50%, #2a1408 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, #1f0d05 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%231a0f08'/%3E%3Ccircle cx='1' cy='1' r='0.5' fill='%23221208' opacity='0.4'/%3E%3C/svg%3E");
+  font-family: 'Crimson Pro', serif;
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+main {
+  max-width: none;
+  width: 100vw;
+  min-height: calc(100vh - 6rem);
+  margin: 0 auto;
+  padding: 2rem 1.5rem 2rem;
+}
+
+/* ============================================================
+   NAVIGATION — matches main project sticky nav
+   ============================================================ */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(26, 15, 8, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--gold);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  color: var(--parchment-shadow);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--gold-light); }
+
+/* ============================================================
+   SECTION HEADER — mirrors .act-header from the main project
+   ============================================================ */
+.act-header {
+  text-align: center;
+  margin: 3rem 0 1rem;
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.act-header.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.act-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.55em;
+  color: var(--blood-light);
+  text-transform: uppercase;
+}
+
+.act-title {
+  font-family: 'Cinzel', serif;
+  font-size: 3.2rem;
+  color: var(--gold-light);
+  margin-top: 0.75rem;
+  text-shadow: 0 0 40px rgba(184,134,11,0.3);
+}
+
+.act-ornament {
+  color: var(--blood);
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+/* ============================================================
+   INTRO NOTE — Juliet's handwritten warning at the top
+   ============================================================ */
+.intro-note {
+  text-align: center;
+  margin: 0 auto 3.5rem;
+  max-width: 640px;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.9s ease 0.2s, transform 0.9s ease 0.2s;
+}
+
+.intro-note.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.intro-note-text {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 1.45rem;
+  color: var(--parchment-shadow);
+  line-height: 1.8;
+  border-left: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+  padding: 1.25rem 2.5rem;
+  position: relative;
+}
+
+.intro-note-text::before,
+.intro-note-text::after {
+  content: '❧';
+  color: var(--gold);
+  display: block;
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.intro-note-text::after {
+  margin-bottom: 0;
+  margin-top: 0.4rem;
+}
+
+/* ============================================================
+   DESK LAYOUT — stacked notebook pages
+   ============================================================ */
+.desk {
+  display: block;
+  width: 100%;
+  position: relative;
+}
+
+/* ============================================================
+   DIARY ENTRY CARDS
+   ============================================================ */
+.diary-entry {
+  background: var(--parchment);
+  border-radius: 2px 10px 10px 2px;
+  padding: 3rem 3rem 2.5rem;
+  position: relative;
+  box-shadow:
+    -6px 0 0 var(--parchment-shadow),
+    -10px 3px 20px rgba(0,0,0,0.6),
+    inset 0 0 0 1px rgba(0,0,0,0.05),
+    4px 4px 18px rgba(0,0,0,0.35);
+  overflow: hidden;
+  width: min(860px, 90%);
+  margin: 0 auto 3rem;
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.75s ease, transform 0.75s ease, box-shadow 0.3s ease;
+}
+
+.diary-entry.visible {
+  opacity: 1;
+  transform: translateY(0) rotate(var(--tilt, 0deg));
+}
+
+.diary-entry.visible {
+  opacity: 1;
+  transform: translateY(0) rotate(var(--tilt, 0deg));
+  animation: float-sway var(--sway-dur, 7s) ease-in-out var(--sway-delay, 0s) infinite alternate;
+}
+
+/* Each entry tilts a tiny bit differently for scattered-paper feel */
+.diary-entry:nth-child(1) { --tilt: -1.3deg; --sway-dur: 7.5s; --sway-delay: 0s; }
+.diary-entry:nth-child(2) { --tilt:  1.5deg; --sway-dur: 8.2s; --sway-delay: 0.4s; }
+.diary-entry:nth-child(3) { --tilt: -0.8deg; --sway-dur: 6.8s; --sway-delay: 0.9s; }
+.diary-entry:nth-child(4) { --tilt:  2.1deg; --sway-dur: 7.1s; --sway-delay: 0.2s; }
+
+@keyframes float-sway {
+  from { transform: translateY(0px) rotate(var(--tilt, 0deg)); }
+  to   { transform: translateY(-5px) rotate(calc(var(--tilt, 0deg) + 0.3deg)); }
+}
+
+.diary-entry:hover {
+  box-shadow:
+    -6px 0 0 var(--parchment-shadow),
+    -14px 6px 30px rgba(0,0,0,0.75),
+    inset 0 0 0 1px rgba(0,0,0,0.05),
+    8px 8px 28px rgba(0,0,0,0.45);
+  z-index: 10;
+}
+
+/* Margin line (like a real journal page) */
+.diary-entry::before {
+  content: '';
+  position: absolute;
+  left: 3rem;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(200,150,100,0.3);
+  pointer-events: none;
+}
+
+/* Ruled lines */
+.diary-entry::after {
+  content: '';
+  position: absolute;
+  inset: 2.4rem;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 27px,
+    rgba(139,100,60,0.12) 27px,
+    rgba(139,100,60,0.12) 28px
+  );
+  pointer-events: none;
+}
+
+/* ============================================================
+   PHYSICAL OBJECT AREA (top of each entry)
+   ============================================================ */
+.entry-object {
+  position: relative;
+  margin-bottom: 1.6rem;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* ============================================================
+   SCRIBBLE SYSTEM
+   Each .scribble-layer sits on top of the text.
+   JS removes it with a canvas-dissolve animation on click.
+   ============================================================ */
+.scribble-wrap {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 0.6rem;
+}
+
+.scribble-wrap:hover .scribble-hint {
+  opacity: 1;
+}
+
+/* The actual hidden text underneath */
+.hidden-text {
+  position: relative;
+  z-index: 1;
+}
+
+/* The scribble overlay — an SVG ink scribble rendered as inline background */
+.scribble-layer {
+  position: absolute;
+  inset: -4px -6px;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 2px;
+  transition: opacity 1.6s ease;
+  /* Will be animated by JS */
+}
+
+.scribble-layer.dissolving {
+  opacity: 0;
+}
+
+/* Tiny floating prompt */
+.scribble-hint {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+  background: rgba(26,15,8,0.85);
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+  border: 1px solid var(--gold);
+}
+
+/* ============================================================
+   ENTRY TYPOGRAPHY
+   ============================================================ */
+.entry-date {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  letter-spacing: 0.35em;
+  color: var(--blood);
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.entry-title-text {
+  font-family: 'Cinzel', serif;
+  font-size: 3rem;
+  color: var(--ink);
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.entry-hint-text {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 1.5rem;
+  line-height: 1.85;
+  color: var(--ink-faded);
+}
+
+.entry-scene-label {
+  margin-top: 1.6rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.25em;
+  color: var(--aged);
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.8s ease 0.5s;
+}
+
+.entry-scene-label.visible {
+  opacity: 1;
+}
+
+/* Small divider line, same style as main project */
+.entry-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--parchment-shadow), transparent);
+  margin: 0.8rem 0 1rem;
+}
+
+/* ============================================================
+   OBJECT ILLUSTRATIONS (pure CSS / SVG inline)
+   ============================================================ */
+
+/* --- Entry 1: White feather with ribbon --- */
+.feather-obj {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 6px;
+}
+
+.feather-svg { filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.3)); opacity: 0.88; }
+
+.ribbon {
+  width: 3px;
+  height: 38px;
+  background: linear-gradient(180deg, #c0a0a0 0%, #a07070 100%);
+  border-radius: 2px;
+  opacity: 0.6;
+  transform: rotate(8deg);
+}
+
+/* --- Entry 2: Balcony doodle --- */
+.balcony-doodle {
+  font-size: 0px; /* holds SVG inline */
+}
+
+/* --- Entry 3: Sword handle — damage stain added via pseudo-element --- */
+.diary-entry.entry-3 {
+  background: linear-gradient(135deg, var(--parchment) 85%, #e0c8a8 100%);
+}
+
+/* Blood stain on entry 3 */
+.blood-stain {
+  position: absolute;
+  width: 90px;
+  height: 65px;
+  background: radial-gradient(ellipse at 40% 50%, rgba(100,10,10,0.28) 0%, rgba(80,8,8,0.12) 55%, transparent 80%);
+  border-radius: 50% 45% 55% 48%;
+  top: 3.2rem;
+  right: 1.8rem;
+  transform: rotate(-12deg);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(1.5px);
+}
+
+.blood-stain-2 {
+  position: absolute;
+  width: 40px;
+  height: 30px;
+  background: radial-gradient(ellipse, rgba(90,6,6,0.18) 0%, transparent 70%);
+  border-radius: 50%;
+  bottom: 4rem;
+  left: 2.5rem;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(1px);
+}
+
+/* --- Entry 4: Green potion spill --- */
+.diary-entry.entry-4 {
+  background: var(--parchment);
+}
+
+.potion-spill {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 160px;
+  height: 130px;
+  background: radial-gradient(ellipse at 60% 40%,
+    rgba(60,110,30,0.32) 0%,
+    rgba(45,90,20,0.18) 45%,
+    rgba(30,70,10,0.07) 70%,
+    transparent 90%
+  );
+  border-radius: 55% 45% 60% 40%;
+  pointer-events: none;
+  z-index: 3;
+  filter: blur(2px);
+  transform: rotate(-8deg);
+}
+
+.potion-spill-drip {
+  position: absolute;
+  top: 80px;
+  right: 14px;
+  width: 18px;
+  height: 55px;
+  background: linear-gradient(180deg,
+    rgba(55,100,25,0.22) 0%,
+    rgba(40,80,15,0.10) 70%,
+    transparent 100%
+  );
+  border-radius: 40% 60% 80% 20%;
+  pointer-events: none;
+  z-index: 3;
+  filter: blur(1.5px);
+}
+
+/* ============================================================
+   CANVAS-BASED INK SCRIBBLE (rendered per-entry in JS)
+   ============================================================ */
+.scribble-canvas {
+  position: absolute;
+  inset: -4px -6px;
+  width: calc(100% + 12px);
+  height: calc(100% + 8px);
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 2px;
+}
+
+/* ============================================================
+   TORN DIVIDER — same as main project
+   ============================================================ */
+.torn-divider {
+  text-align: center;
+  margin: 3rem 0 1rem;
+  color: var(--gold);
+  font-size: 1.2rem;
+  letter-spacing: 0.5em;
+  opacity: 0.6;
+}
+
+/* ============================================================
+   FOOTER — mirrors main project footer
+   ============================================================ */
+footer {
+  text-align: center;
+  padding: 3rem;
+  border-top: 1px solid rgba(184,134,11,0.2);
+  color: var(--aged);
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   REVEAL COUNTER (optional progress at bottom)
+   ============================================================ */
+.reveal-progress {
+  text-align: center;
+  margin-top: 3rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  color: var(--aged);
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.reveal-progress.show { opacity: 1; }
+
+.page-indicator {
+  text-align: center;
+  margin-top: 1rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  color: var(--ink-faded);
+  letter-spacing: 0.2em;
+}
+
+.pdot.lit { background: var(--gold); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 700px) {
+  .desk {
+    flex-direction: column;
+    min-height: auto;
+  }
+  .diary-entry {
+    flex: 0 0 auto;
+    width: 100%;
+    min-height: auto;
+    padding: 2rem 1.5rem 2rem;
+  }
+  .diary-entry.visible {
+    animation: none;
+    transform: translateY(0) rotate(var(--tilt,0deg));
+  }
+  nav {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* ============================================================
+   AMBIENT DUST / GRAIN texture overlay (very subtle)
+   ============================================================ */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.4;
+}
+
+/* ============================================================
+   KEYFRAME — fade in used across the page
+   ============================================================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION — same pattern as main project
+     ============================================================ -->
+<nav>
+  <span class="nav-title">Juliet's Journal</span>
+  <ul class="nav-links">
+    <li><a href="index.html">← Back to Journal</a></li>
+    <li><a href="#entries">The Pages</a></li>
+  </ul>
+</nav>
+
+<!-- ============================================================
+     MAIN
+     ============================================================ -->
+<main>
+
+  <!-- Section header -->
+  <div class="act-header" id="hdr">
+    <div class="act-label">Juliet's Secret Diary</div>
+    <h1 class="act-title">Pages I Tried to Forget</h1>
+    <div class="act-ornament">✦ ✦ ✦</div>
+  </div>
+
+  <!-- Handwritten intro note -->
+  <div class="intro-note" id="intro">
+    <p class="intro-note-text">
+      Some memories are too painful to revisit. Perhaps, if you recognize them,
+      I will finally have the courage to remember.
+    </p>
+  </div>
+
+  <!-- Instruction hint -->
+  <p style="text-align:center; font-family:'IM Fell English',serif; font-style:italic;
+            font-size:1.05rem; color:var(--aged); margin-bottom:2.5rem; opacity:0;
+            animation: fadeIn 1s ease 1.5s both;" id="instr-hint">
+    — The pages are stacked like notebook sheets. Press the right arrow to scroll down to the next page. Click the ink-covered words to lift the scribbles. —
+  </p>
+
+  <div class="page-indicator" id="pageIndicator">Page 1 / 4</div>
+
+  <!-- Progress tracker -->
+  <div class="reveal-progress" id="revealProgress">
+    Memories recovered
+    <div class="progress-dots">
+      <div class="pdot" id="pdot-0"></div>
+      <div class="pdot" id="pdot-1"></div>
+      <div class="pdot" id="pdot-2"></div>
+      <div class="pdot" id="pdot-3"></div>
+    </div>
+  </div>
+
+  <div class="torn-divider">· · ✦ · ·</div>
+
+  <!-- ============================================================
+       DIARY ENTRIES
+       ============================================================ -->
+  <section class="desk" id="entries">
+
+    <!-- ─────────────────────────────────────────────────────────
+         ENTRY 1 · The Capulet Masquerade
+         Object: White feather with ribbon
+         ───────────────────────────────────────────────────────── -->
+    <article class="diary-entry entry-1" data-index="0">
+      <!-- Physical object: feather -->
+      <div class="entry-object">
+        <img src="img1.webp" alt="Entry 1 object illustration" style="max-width: 100%; max-height: 440px; object-fit: contain;">
+      </div>
+
+      <div class="entry-date">A Night in Autumn · The Capulet House</div>
+      <div class="entry-divider"></div>
+
+      <!-- Scribbled title -->
+      <div class="scribble-wrap" data-entry="0" data-part="title" role="button" tabindex="0"
+           aria-label="Click to reveal hidden title">
+        <div class="hidden-text">
+          <div class="entry-title-text">The Night Behind the Masks</div>
+        </div>
+        <canvas class="scribble-canvas" id="sc-0-title"></canvas>
+        <span class="scribble-hint">Click to reveal</span>
+      </div>
+
+      <!-- Scribbled hint -->
+      <div class="scribble-wrap" data-entry="0" data-part="hint" role="button" tabindex="0"
+           aria-label="Click to reveal hidden memory">
+        <div class="hidden-text">
+          <p class="entry-hint-text">
+            I wore a smile that wasn't entirely my own. Among strangers and music,
+            I found someone I should have ignored — but every time our eyes met,
+            it felt impossible to look away.
+          </p>
+        </div>
+        <canvas class="scribble-canvas" id="sc-0-hint"></canvas>
+        <span class="scribble-hint">Click to reveal</span>
+      </div>
+
+      <div class="entry-scene-label" id="scene-0">
+        ✦ &nbsp; The Capulet Masquerade · Act I, Scene V &nbsp; ✦
+      </div>
+    </article>
+
+
+    <!-- ─────────────────────────────────────────────────────────
+         ENTRY 2 · The Balcony Scene
+         Object: Hand-drawn balcony with stars and vines
+         ───────────────────────────────────────────────────────── -->
+    <article class="diary-entry entry-2" data-index="1">
+      <!-- Physical object: doodle -->
+      <div class="entry-object">
+        <img src="img2.webp" alt="Entry 2 object illustration" style="max-width: 100%; max-height: 440px; object-fit: contain;">
+      </div>
+
+      <div class="entry-date">Before Dawn · Beneath My Window</div>
+      <div class="entry-divider"></div>
+
+      <div class="scribble-wrap" data-entry="1" data-part="title" role="button" tabindex="0"
+           aria-label="Click to reveal hidden title">
+        <div class="hidden-text">
+          <div class="entry-title-text">Words Beneath My Window</div>
+        </div>
+        <canvas class="scribble-canvas" id="sc-1-title"></canvas>
+        <span class="scribble-hint">Click to reveal</span>
+      </div>
+
+      <div class="scribble-wrap" data-entry="1" data-part="hint" role="button" tabindex="0"
+           aria-label="Click to reveal hidden memory">
+        <div class="hidden-text">
+          <p class="entry-hint-text">
+            I thought I was alone with my thoughts, but someone had been listening.
+            Strange how a name I had cursed only hours before suddenly sounded sweeter
+            than any song.
+          </p>
+        </div>
+        <canvas class="scribble-canvas" id="sc-1-hint"></canvas>
+        <span class="scribble-hint">Click to reveal</span>
+      </div>
+
+      <div class="entry-scene-label" id="scene-1">
+        ✦ &nbsp; The Balcony Scene · Act II, Scene II &nbsp; ✦
+      </div>
+    </article>
+
+
+    <!-- ─────────────────────────────────────────────────────────
+         ENTRY 3 · Tybalt's Death & Romeo's Banishment
+         Object: Broken, bloody sword handle
+         ───────────────────────────────────────────────────────── -->
+    <article class="diary-entry entry-3" data-index="2">
+      <!-- Blood stains -->
+      <div class="entry-object" style="position:relative;z-index:1;">
+        <img src="img3.webp" alt="Entry 3 object illustration" style="max-width: 100%; max-height: 440px; object-fit: contain;">
+      </div>
+
+      <div class="entry-date" style="position:relative;z-index:1;">
+        The Worst Day · Streets of Verona
+      </div>
+      <div class="entry-divider"></div>
+
+      <div class="scribble-wrap" data-entry="2" data-part="title" role="button" tabindex="0"
+           aria-label="Click to reveal hidden title" style="position:relative;z-index:1;">
+        <div class="hidden-text">
+          <div class="entry-title-text">The Day Verona Changed</div>
+        </div>
+        <canvas class="scribble-canvas" id="sc-2-title"></canvas>
+        <span class="scribble-hint">Click to reveal</span>
+      </div>
+
+      <div class="scribble-wrap" data-entry="2" data-part="hint" role="button" tabindex="0"
+           aria-label="Click to reveal hidden memory" style="position:relative;z-index:1;">
+        <div class="hidden-text">
+          <p class="entry-hint-text">
+            I had wished for peace, yet before the sun had set, grief and anger had
+            stolen more than I could bear. One terrible moment turned love into exile.
+          </p>
+        </div>
+        <canvas class="scribble-canvas" id="sc-2-hint"></canvas>
+        <span class="scribble-hint">Click to reveal</span>
+      </div>
+
+      <div class="entry-scene-label" id="scene-2" style="position:relative;z-index:1;">
+        ✦ &nbsp; Tybalt's Death &amp; Romeo's Banishment · Act III, Scene I &nbsp; ✦
+      </div>
+    </article>
+
+
+    <!-- ─────────────────────────────────────────────────────────
+         ENTRY 4 · Friar Lawrence's Sleeping Potion
+         Object: Green liquid spilled over the page
+         ───────────────────────────────────────────────────────── -->
+    <article class="diary-entry entry-4" data-index="3">
+      <!-- Green potion spill overlapping from corner -->
+      <div class="entry-object" style="position:relative;z-index:1;">
+        <img src="img4.webp" alt="Entry 4 object illustration" style="max-width: 100%; max-height: 440px; object-fit: contain;">
+      </div>
+
+      <div class="entry-date" style="position:relative;z-index:1;">
+        The Night Before · Friar Lawrence's Cell</div>
+      <div class="entry-divider"></div>
+
+      <div class="scribble-wrap" data-entry="3" data-part="title" role="button" tabindex="0"
+           aria-label="Click to reveal hidden title" style="position:relative;z-index:1;">
+        <div class="hidden-text">
+          <div class="entry-title-text">One Last Chance</div>
+        </div>
+        <canvas class="scribble-canvas" id="sc-3-title"></canvas>
+        <span class="scribble-hint">Click to reveal</span>
+      </div>
+
+      <div class="scribble-wrap" data-entry="3" data-part="hint" role="button" tabindex="0"
+           aria-label="Click to reveal hidden memory" style="position:relative;z-index:1;">
+        <div class="hidden-text">
+          <p class="entry-hint-text">
+            The plan sounded frightening, but fear had become easier to bear than the
+            future they had chosen for me. Tonight, I place my trust in a promise and
+            pray that I wake to something better.
+          </p>
+        </div>
+        <canvas class="scribble-canvas" id="sc-3-hint"></canvas>
+        <span class="scribble-hint">Click to reveal</span>
+      </div>
+
+      <div class="entry-scene-label" id="scene-3" style="position:relative;z-index:1;">
+        ✦ &nbsp; Friar Lawrence's Sleeping Potion · Act IV, Scene I &nbsp; ✦
+      </div>
+    </article>
+
+  </section><!-- /desk -->
+
+  <div class="torn-divider" style="margin-top:3rem;">· · ✦ · ·</div>
+
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  Juliet's Journal &mdash; A Capulet's Heart &nbsp;·&nbsp;
+  Pages I Tried to Forget &nbsp;·&nbsp; All words belong to the heart that wrote them
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+"use strict";
+
+/* ────────────────────────────────────────────────────────────────────
+   1.  SCROLL REVEAL
+   ──────────────────────────────────────────────────────────────────── */
+const scrollTargets = document.querySelectorAll(
+  '.act-header, .intro-note, .diary-entry'
+);
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+scrollTargets.forEach(el => revealObserver.observe(el));
+
+/* Stagger entry cards slightly */
+document.querySelectorAll('.diary-entry').forEach((el, i) => {
+  el.style.transitionDelay = (i * 0.12) + 's';
+});
+
+const pages = Array.from(document.querySelectorAll('.diary-entry'));
+const pageIndicator = document.getElementById('pageIndicator');
+let currentPage = 0;
+
+function updatePage() {
+  if (!pages.length) return;
+  currentPage = Math.max(0, Math.min(currentPage, pages.length - 1));
+  const targetPage = pages[currentPage];
+  if (targetPage) {
+    targetPage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  if (pageIndicator) {
+    pageIndicator.textContent = `Page ${currentPage + 1} / ${pages.length}`;
+  }
+}
+
+function changePage(direction) {
+  currentPage = Math.max(0, Math.min(currentPage + direction, pages.length - 1));
+  updatePage();
+}
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'ArrowRight') {
+    event.preventDefault();
+    changePage(1);
+  }
+  if (event.key === 'ArrowLeft') {
+    event.preventDefault();
+    changePage(-1);
+  }
+});
+
+window.addEventListener('load', updatePage);
+
+
+/* ────────────────────────────────────────────────────────────────────
+   2.  SCRIBBLE CANVAS — draw realistic ink scribble over each target
+   ──────────────────────────────────────────────────────────────────── */
+
+/**
+ * Draws randomised, overlapping ink scribble strokes onto a canvas
+ * to simulate heavy pen scribbling that completely obscures text.
+ * @param {HTMLCanvasElement} canvas
+ * @param {boolean} isDark - true for title (darker strokes), false for hint
+ */
+function drawScribble(canvas, isDark) {
+  const ctx  = canvas.getContext('2d');
+  const W    = canvas.width;
+  const H    = canvas.height;
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Slight cream-wash so the scribble visually seals the text
+  ctx.fillStyle = 'rgba(235,220,190,0.55)';
+  ctx.fillRect(0, 0, W, H);
+
+  const inkColor = isDark
+    ? 'rgba(22,10,4,'    // nearly black ink for title
+    : 'rgba(28,14,5,';   // slightly lighter for hint
+
+  // Draw many strokes in overlapping passes
+  const passes = isDark ? 7 : 5;
+  for (let p = 0; p < passes; p++) {
+    const numStrokes = isDark
+      ? Math.floor(8 + Math.random() * 6)
+      : Math.floor(5 + Math.random() * 5);
+
+    for (let s = 0; s < numStrokes; s++) {
+      ctx.beginPath();
+      ctx.strokeStyle = inkColor + (0.55 + Math.random() * 0.35) + ')';
+      ctx.lineWidth   = isDark
+        ? 1.5 + Math.random() * 3.5
+        : 1.2 + Math.random() * 2.8;
+      ctx.lineCap     = 'round';
+      ctx.lineJoin    = 'round';
+
+      // Start position: vary y across the height of the canvas
+      const yBase = (H / numStrokes) * s + Math.random() * (H / numStrokes);
+      const x0    = -10 + Math.random() * W * 0.25;
+      const y0    = yBase + (Math.random() - 0.5) * 6;
+
+      ctx.moveTo(x0, y0);
+
+      // Several control-point curves zigzag across the width
+      let x = x0;
+      while (x < W + 10) {
+        const cpx1 = x + 20 + Math.random() * 35;
+        const cpy1 = y0 + (Math.random() - 0.5) * 10;
+        const cpx2 = x + 40 + Math.random() * 35;
+        const cpy2 = y0 + (Math.random() - 0.5) * 10;
+        const ex   = x + 55 + Math.random() * 40;
+        const ey   = y0 + (Math.random() - 0.5) * 8;
+        ctx.bezierCurveTo(cpx1, cpy1, cpx2, cpy2, ex, ey);
+        x = ex;
+      }
+      ctx.stroke();
+    }
+  }
+
+  // Short vertical jabs for texture
+  const jabs = isDark ? 18 : 10;
+  for (let j = 0; j < jabs; j++) {
+    ctx.beginPath();
+    ctx.strokeStyle = inkColor + (0.4 + Math.random() * 0.3) + ')';
+    ctx.lineWidth   = 0.8 + Math.random() * 1.5;
+    const jx = Math.random() * W;
+    const jy = Math.random() * H;
+    ctx.moveTo(jx, jy);
+    ctx.lineTo(jx + (Math.random() - 0.5) * 8, jy + Math.random() * 10);
+    ctx.stroke();
+  }
+
+  // Ink blots
+  const blots = isDark ? 4 : 2;
+  for (let b = 0; b < blots; b++) {
+    const bx = Math.random() * W;
+    const by = Math.random() * H;
+    const r  = 1.5 + Math.random() * 4;
+    const grd = ctx.createRadialGradient(bx, by, 0, bx, by, r);
+    grd.addColorStop(0, inkColor + '0.85)');
+    grd.addColorStop(1, inkColor + '0)');
+    ctx.beginPath();
+    ctx.arc(bx, by, r, 0, Math.PI * 2);
+    ctx.fillStyle = grd;
+    ctx.fill();
+  }
+}
+
+
+/**
+ * Initialise all scribble canvases.
+ * Must run after layout so getBoundingClientRect gives real dimensions.
+ */
+function initAllScribbles() {
+  document.querySelectorAll('.scribble-wrap').forEach(wrap => {
+    const canvas = wrap.querySelector('.scribble-canvas');
+    if (!canvas) return;
+
+    // Size canvas to match the wrap element
+    const rect   = wrap.getBoundingClientRect();
+    const dpr    = window.devicePixelRatio || 1;
+    canvas.width  = Math.max(rect.width + 12, 80) * dpr;
+    canvas.height = Math.max(rect.height + 8, 30) * dpr;
+    canvas.style.width  = (Math.max(rect.width + 12, 80))  + 'px';
+    canvas.style.height = (Math.max(rect.height + 8, 30)) + 'px';
+    canvas.getContext('2d').scale(dpr, dpr);
+
+    const isTitle = wrap.dataset.part === 'title';
+    drawScribble(canvas, isTitle);
+
+    // Mark as not-yet-revealed
+    canvas.dataset.revealed = 'false';
+  });
+}
+
+// Run after fonts load so text sizes are correct
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(() => {
+    requestAnimationFrame(initAllScribbles);
+  });
+} else {
+  window.addEventListener('load', initAllScribbles);
+}
+
+// Also re-init on resize (debounced)
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(initAllScribbles, 250);
+});
+
+
+/* ────────────────────────────────────────────────────────────────────
+   3.  SCRIBBLE REVEAL — dissolve animation using canvas pixel erosion
+   ──────────────────────────────────────────────────────────────────── */
+
+// Track reveal state per entry
+const entryRevealState = { 0: 0, 1: 0, 2: 0, 3: 0 }; // bits: 01=title, 10=hint, 11=both
+
+/**
+ * Animate the canvas dissolving away by fading alpha in random patches.
+ * This gives a "magical erasure" effect rather than a simple opacity fade.
+ * @param {HTMLCanvasElement} canvas
+ * @param {Function} onComplete
+ */
+function dissolveCanvas(canvas, onComplete) {
+  if (canvas.dataset.revealed === 'true') return;
+  canvas.dataset.revealed = 'true';
+
+  const ctx   = canvas.getContext('2d');
+  const W     = canvas.width;
+  const H     = canvas.height;
+  const dpr   = window.devicePixelRatio || 1;
+
+  // We'll erode the canvas by punching increasingly large transparent circles
+  // at random positions — fast burst first, then settling.
+  let frame      = 0;
+  const totalFrames = 55;
+
+  function erase() {
+    frame++;
+    // Each frame: punch several holes
+    const holes = Math.floor(4 + frame * 0.8);
+    ctx.save();
+    ctx.globalCompositeOperation = 'destination-out';
+    for (let h = 0; h < holes; h++) {
+      const x = Math.random() * W;
+      const y = Math.random() * H;
+      // Radius grows as the animation progresses
+      const r = (2 + Math.random() * 8) * (1 + frame / totalFrames * 2.5) * dpr;
+      const grd = ctx.createRadialGradient(x, y, 0, x, y, r);
+      grd.addColorStop(0, 'rgba(0,0,0,0.9)');
+      grd.addColorStop(0.6, 'rgba(0,0,0,0.4)');
+      grd.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fillStyle = grd;
+      ctx.fill();
+    }
+    ctx.restore();
+
+    if (frame < totalFrames) {
+      requestAnimationFrame(erase);
+    } else {
+      // Final clear
+      ctx.clearRect(0, 0, W, H);
+      if (onComplete) onComplete();
+    }
+  }
+
+  requestAnimationFrame(erase);
+}
+
+
+/**
+ * Handle a click/keypress on a scribble-wrap element.
+ */
+function handleReveal(wrap) {
+  const canvas = wrap.querySelector('.scribble-canvas');
+  if (!canvas || canvas.dataset.revealed === 'true') return;
+
+  const entryIdx = parseInt(wrap.dataset.entry, 10);
+  const part     = wrap.dataset.part; // 'title' or 'hint'
+
+  dissolveCanvas(canvas, () => {
+    // Mark the part as revealed
+    entryRevealState[entryIdx] |= (part === 'title' ? 1 : 2);
+
+    // If both parts of this entry are revealed, show the scene label
+    if (entryRevealState[entryIdx] === 3) {
+      const sceneLabel = document.getElementById('scene-' + entryIdx);
+      if (sceneLabel) sceneLabel.classList.add('visible');
+
+      // Light up the progress dot
+      const dot = document.getElementById('pdot-' + entryIdx);
+      if (dot) dot.classList.add('lit');
+
+      // Show the progress bar if not already visible
+      const prog = document.getElementById('revealProgress');
+      if (prog) prog.classList.add('show');
+    }
+  });
+}
+
+/* Attach click + keyboard handlers to all scribble wraps */
+document.querySelectorAll('.scribble-wrap').forEach(wrap => {
+  wrap.addEventListener('click', () => handleReveal(wrap));
+  wrap.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleReveal(wrap);
+    }
+  });
+});
+
+
+/* ────────────────────────────────────────────────────────────────────
+   4.  SUBTLE AMBIENT AUDIO (ink scratch sound on click)
+       Uses Web Audio API — tiny optional enhancement with graceful fallback
+   ──────────────────────────────────────────────────────────────────── */
+let audioCtx = null;
+
+function getAudioCtx() {
+  if (!audioCtx) {
+    try {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    } catch (e) {
+      return null;
+    }
+  }
+  return audioCtx;
+}
+
+/**
+ * Plays a brief "scratch/rustle" noise to accompany the ink dissolve.
+ */
+function playInkScratch() {
+  const ac = getAudioCtx();
+  if (!ac) return;
+
+  try {
+    // Short burst of filtered noise
+    const bufferSize = ac.sampleRate * 0.12;
+    const buffer     = ac.createBuffer(1, bufferSize, ac.sampleRate);
+    const data       = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = (Math.random() * 2 - 1) * Math.max(0, 1 - i / bufferSize * 3);
+    }
+
+    const source  = ac.createBufferSource();
+    source.buffer = buffer;
+
+    const filter      = ac.createBiquadFilter();
+    filter.type       = 'bandpass';
+    filter.frequency.value = 3500;
+    filter.Q.value    = 0.8;
+
+    const gain       = ac.createGain();
+    gain.gain.value  = 0.12;
+    gain.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + 0.15);
+
+    source.connect(filter);
+    filter.connect(gain);
+    gain.connect(ac.destination);
+    source.start();
+  } catch (e) {
+    // Silently ignore any audio errors
+  }
+}
+
+/* Fire the scratch sound on scribble click */
+document.querySelectorAll('.scribble-wrap').forEach(wrap => {
+  wrap.addEventListener('click', playInkScratch);
+});
+
+</script>
+
+</body>
+</html>
